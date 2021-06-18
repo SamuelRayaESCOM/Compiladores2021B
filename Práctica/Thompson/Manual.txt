@@ -1,1 +1,10 @@
 
+Aún no está concluido, faltan algunas mejoras y características.
+
+Lo que sí puede hacer:
+- Leer y aceptar un ER por parte del usuario
+- Imprimir la forma final del árbol de decisión
+
+Caracteres no permitidos: 
+  ( ) o
+Otros caracteres se tomarán como parte de la ER.

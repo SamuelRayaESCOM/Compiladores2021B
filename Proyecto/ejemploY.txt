@@ -1,0 +1,98 @@
+%{
+	#include <stdio.h>
+	void yyerror(char *mensaje) {
+	printf("Error: %s\n", mensaje);
+	}
+%}
+
+%token IDENTIFIER CONSTANT STRING_LITERAL SIZEOF
+%token EQ_OP NE_OP
+%token AND_OP OR_OP 
+
+%token TYPEDEF 
+%token CHAR SHORT INT LONG SIGNED UNSIGNED FLOAT DOUBLE CONST VOLATILE VOID
+
+%token CASE DEFAULT IF ELSE SWITCH WHILE DO FOR GOTO CONTINUE BREAK RETURN
+
+%start translation_unit
+%%
+
+primary_expression
+	: IDENTIFIER
+	| CONSTANT
+	| STRING_LITERAL
+	| '(' expression ')'
+	;
+
+postfix_expression
+	: primary_expression
+	| postfix_expression '(' ')'
+	| postfix_expression '(' argument_expression_list ')'
+	;
+
+argument_expression_list
+	: assignment_expression
+	;
+
+unary_expression
+	: postfix_expression
+	| SIZEOF unary_expression
+	;
+
+cast_expression
+	: unary_expression			
+	;
+
+multiplicative_expression
+	: cast_expression
+	| multiplicative_expression '*' cast_expression 	{printf("\n 1. Multiplicación de 2 digitos.\n"); printf("2. Yylex() lee la entrada de la primera variable y manda la información\n con yyparse() mediante el retorno de yylex() y la variable yylval\n"); printf("3. Se almacena el valor en la pila.\n"); printf("4. Lo mismo ocurre con el operando y con la segunda variable.\n"); printf("5. Una vez realizada la multiplicación, se asigna a $1 el valor del producto $$.\n");}
+
+	| multiplicative_expression '/' cast_expression 	{printf("\n 1. División de 2 digitos.\n"); printf("2. Yylex() lee la entrada de la primera variable y manda la información\n con yyparse() mediante el retorno de yylex() y la variable yylval\n"); printf("3. Se almacena el valor en la pila.\n"); printf("4. Lo mismo ocurre con el operando y con la segunda variable.\n"); printf("5. Una vez realizada la division, se asigna a $1 el valor de la division $$.\n");}
+	| multiplicative_expression '%' cast_expression
+	;
+
+additive_expression
+	: multiplicative_expression
+	| additive_expression '+' multiplicative_expression		{printf("\n 1. suma de 2 digitos.\n"); printf("2. Yylex() lee la entrada de la primera variable y manda la información\n con yyparse() mediante el retorno de yylex() y la variable yylval\n"); printf("3. Se almacena el valor en la pila.\n"); printf("4. Lo mismo ocurre con el operando y con la segunda variable.\n"); printf("5. Una vez realizada la suma, se asigna a $1 el valor de la suma $$.\n");}
+
+	| additive_expression '-' multiplicative_expression 	{printf("\n 1. Resta de 2 digitos.\n"); printf("2. Yylex() lee la entrada de la primera variable y manda la información\n con yyparse() mediante el retorno de yylex() y la variable yylval\n"); printf("3. Se almacena el valor en la pila.\n"); printf("4. Lo mismo ocurre con el operando y con la segunda variable.\n"); printf("5. Una vez realizada la resta, se asigna a $1 el valor del resta $$.\n");}
+	;
+
+equality_expression
+	: additive_expression
+	| equality_expression EQ_OP additive_expression		{printf("\n 1. Comparación igual de 2 digitos.\n"); printf("2. Yylex() lee la entrada de la primera variable y manda la información\n con yyparse() mediante el retorno de yylex() y la variable yylval\n"); printf("3. Se almacena el valor en la pila.\n"); printf("4. Lo mismo ocurre con el operando y con la segunda variable.\n"); printf("5. Una vez realizada la comparacón, se asigna a $1 el valor booleano de la comparación == en $$.\n");}
+
+	| equality_expression NE_OP additive_expression		{printf("\n 1. Comparación diferente de 2 digitos.\n"); printf("2. Yylex() lee la entrada de la primera variable y manda la información\n con yyparse() mediante el retorno de yylex() y la variable yylval\n"); printf("3. Se almacena el valor en la pila.\n"); printf("4. Lo mismo ocurre con el operando y con la segunda variable.\n"); printf("5. Una vez realizada la comparacón, se asigna a $1 el valor booleano de la diferencia en $$.\n");}
+	;
+
+logical_and_expression
+	: equality_expression
+	| logical_and_expression AND_OP equality_expression		{printf("\n 1. AND de 2 digitos.\n"); printf("2. Yylex() lee la entrada de la primera variable y manda la información\n con yyparse() mediante el retorno de yylex() y la variable yylval\n"); printf("3. Se almacena el valor en la pila.\n"); printf("4. Lo mismo ocurre con el operando y con la segunda variable.\n"); printf("5. Una vez realizada la comparacón, se asigna a $1 el valor booleano de la comparación AND en $$.\n");}
+	;
+
+logical_or_expression
+	: logical_and_expression
+	| logical_or_expression OR_OP logical_and_expression	{printf("\n 1. OR de 2 digitos.\n"); printf("2. Yylex() lee la entrada de la primera variable y manda la información\n con yyparse() mediante el retorno de yylex() y la variable yylval\n"); printf("3. Se almacena el valor en la pila.\n"); printf("4. Lo mismo ocurre con el operando y con la segunda variable.\n"); printf("5. Una vez realizada la comparacón, se asigna a $1 el valor booleano de la comparación OR en $$.\n");}
+	;
+
+assignment_expression
+	: logical_or_expression
+	;
+
+expression
+	: assignment_expression
+	| expression ',' assignment_expression
+	;
+
+translation_unit
+	: external_declaration
+	| translation_unit external_declaration
+	;
+
+external_declaration:'(' expression ')';
+
+%%
+int main(){
+	yyparse();	/*	dispara/inicia el análisis sintáctico	*/
+	return 0;
+}

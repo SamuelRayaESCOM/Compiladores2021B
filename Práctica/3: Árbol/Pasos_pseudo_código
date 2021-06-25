@@ -1,0 +1,11 @@
+Pasos:
+
+1. Pedir expresión:														                      ✓
+2. Modificar expresión agregando "(" y ")#"								          ✓
+3. Ennumerar															                          x
+4. Ver si es anulable (e,*)												                  ✓
+5. Anotar las posiciones con las que pueda empezar una sub-raíz     x
+6. Anotar las posiciones con las que pueda terminar na sub-raíz			x
+7. LLenar la tabla de siguientes.										                x
+8.Crear el afd
+	8.1 Imprimir en un archivo .vg para poder visualizarlo				    ✓

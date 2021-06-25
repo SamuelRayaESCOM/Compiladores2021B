@@ -1,0 +1,13 @@
+Pasos:
+
+1. Guardar los datos del archivo que contiene un AFN                          ✓
+2. Guardar aquelas que sean cerraduras-Épsilon                                ~
+Mientras: Cada estado existente
+  3. Tomar el primer estado                                                   x
+  4. Obtener núcleos y alcanzables del estado con cada símbolo del alfabeto.  x
+    4.1. Si es un nuevo núcleo, crear un nuevo estado.                        x
+Fin del mientras
+5. Ver que estados son finales (Aquellos que contienen al estado final)       x
+  5.1 Este se representa en el documento inicial analizado agregando un '*' después de haber nombrado el estado
+  
+6. Imprimir en un archivo .vg las direcciones de los estados.                 ✓

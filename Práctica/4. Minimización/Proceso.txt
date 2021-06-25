@@ -1,0 +1,12 @@
+Pasos:
+
+Mientras:
+  1. Crear partición de finales y no finales.                                                   x
+  Mientras: Haya algún diferenciable
+    2. Analizar si el primer estado es diferenciable del resto de su partición.                 x
+    3. Si son diferenciables (Ambos estados llevan a una distinta partición)                    x
+        3.1. Se crea una nueva partición con aquellos que fueron diferenciables;                x
+        3.2. De la partición de no finales se saca aquella que vaya a ser una nueva partición.  x
+  Fin del mientras.
+
+4. Mandar los datos a un archivo .vg.                                                           ✓
